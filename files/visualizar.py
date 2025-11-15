@@ -10,7 +10,7 @@ def carregar_arquivo(nome):
         return pd.read_csv(caminho)
     return pd.DataFrame()
 
-# ---------------------- DASHBOARD ---------------------- #
+
 
 def main():
 
@@ -18,18 +18,18 @@ def main():
 
     st.title("📊 Dashboard Financeiro – Personal Organizer")
 
-    # Carregar dados
+
     receitas = carregar_arquivo("receitas.csv")
     despesas = carregar_arquivo("despesas.csv")
 
-    # Garantir colunas consistentes
+    
     for df in [receitas, despesas]:
         if df.empty:
             continue
         if "Categoria" not in df.columns:
             df["Categoria"] = "Sem categoria"
 
-    # Mostrar métricas principais
+    
     total_receitas = receitas["Valor"].sum() if not receitas.empty else 0
     total_despesas = despesas["Valor"].sum() if not despesas.empty else 0
     saldo = total_receitas - total_despesas
@@ -41,7 +41,7 @@ def main():
 
     st.divider()
 
-    # ---------------------- FILTRAR POR CATEGORIA ---------------------- #
+    
 
     if not despesas.empty:
         categorias = sorted(despesas["Categoria"].unique())
@@ -54,17 +54,17 @@ def main():
     else:
         despesas_filtradas = pd.DataFrame()
 
-    # ---------------------- TABELAS ---------------------- #
+    
 
-    st.subheader("📄 Tabela de Receitas")
+    st.subheader(" Tabela de Receitas")
     st.dataframe(receitas if not receitas.empty else pd.DataFrame({"Mensagem": ["Nenhuma receita cadastrada"]}))
 
-    st.subheader("📄 Tabela de Despesas")
+    st.subheader(" Tabela de Despesas")
     st.dataframe(despesas_filtradas if not despesas_filtradas.empty else pd.DataFrame({"Mensagem": ["Nenhuma despesa cadastrada"]}))
 
     st.divider()
 
-    # ---------------------- GRÁFICO RECEITAS X DESPESAS ---------------------- #
+    
 
     if not receitas.empty and not despesas.empty:
         import plotly.express as px
@@ -79,10 +79,10 @@ def main():
 
         st.plotly_chart(fig, use_container_width=True)
 
-    # ---------------------- GRÁFICO POR CATEGORIA ---------------------- #
+    
 
     if not despesas.empty:
-        st.subheader("📌 Gastos por Categoria")
+        st.subheader(" Gastos por Categoria")
 
         df_cat = despesas.groupby("Categoria")["Valor"].sum().reset_index()
 
@@ -92,7 +92,6 @@ def main():
     else:
         st.info("Nenhuma despesa cadastrada para gerar gráficos.")
 
-# ---------------------- EXECUTAR ---------------------- #
 
 if __name__ == "__main__":
     main()
