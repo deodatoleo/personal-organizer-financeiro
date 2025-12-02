@@ -1,2 +1,4 @@
-Descrição,Valor,Data
-200,200.0,2025-11-07
+Descrição,Valor,Data,Categoria
+Gasolina,100.0,01/12/2025,Combustível
+Jantar,115.0,01/12/2025,Restaurante
+Conta de Luz,450.0,01/12/2025,Conta de Luz
