@@ -8,13 +8,24 @@ DATASETS_DIR = os.path.join(BASE_DIR, "datasets")
 os.makedirs(DATASETS_DIR, exist_ok=True)
 
 
-def salvar_registro(tipo: str, descricao: str, valor: float, data: str):
+def salvar_registro(tipo: str, descricao: str, valor: float, data: str, categoria: str = None):
     arquivo = os.path.join(DATASETS_DIR, f"{tipo}s.csv")
 
     novo_registro = pd.DataFrame([{
         "Descrição": descricao,
         "Valor": valor,
-        "Data": data
+        "Data": data,
+        "Categoria": categoria
+    }])
+
+    if categoria:
+        novo_registro["Categoria"] = categoria
+
+    novo_registro = pd.DataFrame([{
+        "Descrição": descricao,
+        "Valor": valor,
+        "Data": data,
+        "Categoria": categoria
     }])
 
     if os.path.exists(arquivo):
@@ -115,7 +126,7 @@ def cadastrar_receita():
 
     categoria = escolher_categoria()
 
-    salvar_registro("receita", f"{descricao} ({categoria})", valor, data)
+    salvar_registro("receita", descricao, valor, data, categoria)
 
 
 def cadastrar_despesa():
@@ -126,4 +137,4 @@ def cadastrar_despesa():
 
     categoria = escolher_categoria()
 
-    salvar_registro("despesa", f"{descricao} ({categoria})", valor, data)
+    salvar_registro("despesa", descricao, valor, data, categoria)
