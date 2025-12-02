@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 
+
 DATASETS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "datasets")
 
 def carregar_arquivo(nome):
@@ -9,7 +10,7 @@ def carregar_arquivo(nome):
     if os.path.exists(caminho):
         return pd.read_csv(caminho)
     return pd.DataFrame()
-
+''
 
 
 def main():
